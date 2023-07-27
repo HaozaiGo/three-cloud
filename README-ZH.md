@@ -7,9 +7,11 @@ Language: [English](README.md) | [中文简体](README-ZH.md)
 
 # 2、city
 # 用vue+ three.js 旋转一个园区 城市
+
 #
 
-<video src="./public/v1.mp4"></video>
+![v1.gif](https://s2.loli.net/2023/07/27/V7I2SQgtKUlWqxA.gif)
+
 
 ## Project setup
 ```
