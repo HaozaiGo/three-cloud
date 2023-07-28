@@ -2,8 +2,11 @@
  * @Description: 
  * @Author: xiaoHao
  */
+/*
+ * @Description: 
+ * @Author: xiaoHao
+ */
 const path = require('path');
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
     entry: './src/main.js',
@@ -31,12 +34,6 @@ module.exports = {
     },
     contentBase: false,
     plugins:[
-        // new CopyWebpackPlugin([
-        //     {
-        //       from: path.resolve(__dirname, './static'),
-        //       to: 'public',
-        //       ignore: ['.*']
-        //     }
-        //   ])
+    
     ]
 };

@@ -8,6 +8,7 @@ import { reactive, toRefs, onBeforeMount, onMounted, ref } from 'vue'
 
 import * as THREE from 'three';
 import { OBJLoader, MTLLoader } from "three-obj-mtl-loader";
+const OrbitControls = require('three-orbit-controls')(THREE);
 
 // import model from '../../static/city.mtl';
 
@@ -23,12 +24,14 @@ export default {
         let camera = {},
             scene = {},
             renderer = {},
-            MyObj = {}
+            MyObj = {},
+            controls = {}
         // cube = {};
 
         const initScrene = () => {
             scene = new THREE.Scene();
             camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 60, 100);
 
 
             renderer = new THREE.WebGLRenderer();
@@ -36,9 +39,17 @@ export default {
             sessionCity.value.appendChild(renderer.domElement);
 
             // const light = new THREE.AmbientLight(0x404040); // 柔和的白光
-            const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
-            directionalLight.position.set( 0, 300, 100 );
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(0, 300, 200);
             scene.add(directionalLight);
+
+            //初始化控制器
+            controls = new OrbitControls(camera);
+            controls.target.set(0, 0, 0);
+            controls.minDistance = 80;
+            controls.maxDistance = 400;
+            controls.maxPolarAngle = Math.PI / 3;
+            controls.update();
 
 
 
@@ -53,7 +64,7 @@ export default {
                     MyObj = obj
                     console.log(MyObj);
 
-                    MyObj.position.set(0, -20, 10)
+                    MyObj.position.set(0, 10, 0)
                     scene.add(MyObj);
                 })
             })
@@ -92,7 +103,7 @@ export default {
             // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
             // cube = new THREE.Mesh(geometry, material);
             // scene.add(cube);
-            camera.position.z = 100;
+
 
 
         }
@@ -101,13 +112,12 @@ export default {
         const render = () => {
             requestAnimationFrame(render);
 
-            // MyObj.rotation.x += 0.01;
-            try{    
+            try {
                 MyObj.rotation.y += 0.005;
-            }catch(err){
+            } catch (err) {
                 console.log(err);
             }
-            
+
 
             renderer.render(scene, camera);
         }
